@@ -1,2 +1,10 @@
-GET     /               controllers.Application.index
-GET     /generateDDL    controllers.DatabaseController.generateDDL
+GET     /                           controllers.Application.index
+GET     /generateDDL                controllers.DatabaseController.generateDDL
+GET     /insert                     controllers.DatabaseController.insertArticles
+
+GET     /pinboards                  controllers.RestController.index
+POST    /pinboards                  controllers.RestController.createPinboard
+GET     /pinboards/:id              controllers.RestController.listArticles(id: Long)
+DELETE  /pinboards/:id              controllers.RestController.deletePinboard(id: Long)
+PUT     /pinboards/:id/:article     controllers.RestController.pinArticle(id: Long, article: Long)
+DELETE  /pinboards/:id/:article     controllers.RestController.unpinArticle(id: Long, article: Long)
