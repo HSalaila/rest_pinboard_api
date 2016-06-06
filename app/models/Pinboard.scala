@@ -2,14 +2,13 @@ package models
 
 import javax.inject.Inject
 
+import _root_.util.BaseRepo
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json._
-import slick.lifted.{TableQuery, Tag}
 import slick.driver.H2Driver.api._
-import _root_.util.BaseRepo
+import slick.lifted.{TableQuery, Tag}
 
 import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 /**
   * Created by Harold on 2016-06-04.
   */

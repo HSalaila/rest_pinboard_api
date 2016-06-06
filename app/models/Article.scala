@@ -4,12 +4,11 @@ import javax.inject.Inject
 
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
-import slick.lifted.Tag
 import slick.driver.H2Driver.api._
+import slick.lifted.Tag
 import util.BaseRepo
 
 import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 /**
   * Created by Harold on 2016-06-04.
   */

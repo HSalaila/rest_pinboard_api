@@ -5,6 +5,8 @@ create table "pinboard_article" ("pinboard_id" BIGINT NOT NULL,"article_id" BIGI
 alter table "pinboard_article" add constraint "article_fk" foreign key("article_id") references "article"("id") on update NO ACTION on delete NO ACTION;
 alter table "pinboard_article" add constraint "pinboard_fk" foreign key("pinboard_id") references "pinboard"("id") on update NO ACTION on delete NO ACTION;
 
+insert into "article" ("title", "body") values ('hello','world'), ('good bye', 'world');
+
 # --- !Downs
 alter table "pinboard_article" drop constraint "article_fk";
 alter table "pinboard_article" drop constraint "pinboard_fk";

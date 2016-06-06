@@ -1,6 +1,5 @@
 GET     /                           controllers.Application.index
 GET     /generateDDL                controllers.DatabaseController.generateDDL
-GET     /insert                     controllers.DatabaseController.insertArticles
 
 GET     /pinboards                  controllers.RestController.index
 POST    /pinboards                  controllers.RestController.createPinboard
