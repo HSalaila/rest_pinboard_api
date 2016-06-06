@@ -46,8 +46,8 @@ class PinboardRepo @Inject()(dbConfigProvider: DatabaseConfigProvider) extends B
     db.run(action)
   }
 
-  def listPinboards: Future[Seq[(Long, String)]] = {
-    val action = pinboards.map(pinboard => (pinboard.id, pinboard.name))
+  def listPinboards: Future[Seq[Pinboard]] = {
+    val action = pinboards
     db.run(action.result)
   }
 }

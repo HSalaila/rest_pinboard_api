@@ -51,8 +51,8 @@ class ArticleRepo @Inject()(dbConfigProvider: DatabaseConfigProvider) extends Ba
     db.run(action)
   }
 
-  def listArticles: Future[Seq[(String, String)]] = {
-    val action = articles.map(article => (article.title, article.body))
+  def listArticles: Future[Seq[Article]] = {
+    val action = articles
     db.run(action.result)
   }
 }

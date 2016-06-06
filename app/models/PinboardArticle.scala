@@ -68,10 +68,8 @@ class PinboardArticleRepo @Inject()(dbConfigProvider: DatabaseConfigProvider) ex
     db.run(namedQuery.result)
   }
 
-  def listPinboardArticles: Future[Seq[(Long, Long, DateTime)]] = {
-    val action = pinboardArticles.map(pinboardArticle => (pinboardArticle.pinboardId,
-                                                          pinboardArticle.articleId,
-                                                          pinboardArticle.pinnedAt))
+  def listPinboardArticles: Future[Seq[PinboardArticle]] = {
+    val action = pinboardArticles
     db.run(action.result)
   }
 }

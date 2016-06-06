@@ -18,15 +18,15 @@ class RestController @Inject() (pinboardRepo: PinboardRepo,
   def index = Action {
     var text = "-- pinboard repo --" + System.lineSeparator()
     text += Await.result(pinboardRepo.listPinboards, Duration.Inf).foldLeft("")((text, t) => {
-      text + "id: " + t._1 + " name: " + t._2 + System.lineSeparator()
+      text + "id: " + t.id + " name: " + t.name + System.lineSeparator()
     })
     text += "-- pinboard article repo --" + System.lineSeparator()
     text += Await.result(pinboardArticleRepo.listPinboardArticles, Duration.Inf).foldLeft("")((text, t) => {
-      text + "pinboard id: " + t._1 + " article id: " + t._2 + " pinned at: " + t._3 + System.lineSeparator()
+      text + "pinboard id: " + t.pinboardId + " article id: " + t.articleId + " pinned at: " + t.pinnedAt + System.lineSeparator()
     })
     text += "-- article repo --" + System.lineSeparator()
     text += Await.result(articleRepo.listArticles, Duration.Inf).foldLeft("")((text, t) => {
-      text + "title: " + t._1 + " body: " + t._2 + System.lineSeparator()
+      text + "id: " + t.id + " title: " + t.title + " body: " + t.body + System.lineSeparator()
     })
     Ok(text).as("text/plain")
   }
