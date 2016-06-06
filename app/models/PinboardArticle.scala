@@ -8,6 +8,7 @@ import slick.driver.H2Driver.api._
 import slick.lifted.Tag
 import util.BaseRepo
 import com.github.tototoshi.slick.H2JodaSupport._
+import play.api.libs.json.{Json, Writes}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -15,6 +16,18 @@ import scala.concurrent.ExecutionContext.Implicits.global
   * Created by Harold on 2016-06-04.
   */
 case class PinboardArticle(pinboardId: Long, articleId: Long, pinnedAt: DateTime)
+object PinboardArticle {
+  // http://stackoverflow.com/questions/22367092/using-tupled-method-when-companion-object-is-in-class
+  def tupled = (PinboardArticle.apply _).tupled
+
+  implicit val pinboardArticleWrites = new Writes[PinboardArticle] {
+    def writes(pinboardArticle: PinboardArticle) = Json.obj(
+      "pinboard_id" -> pinboardArticle.pinboardId,
+      "article_id" -> pinboardArticle.articleId,
+      "pinned_at" -> pinboardArticle.pinnedAt.toString
+    )
+  }
+}
 class PinboardArticleTable(tag: Tag) extends Table[PinboardArticle](tag, "pinboard_article") {
   val pinboards = TableQuery[PinboardTable]
   val articles = TableQuery[ArticleTable]
@@ -53,5 +66,12 @@ class PinboardArticleRepo @Inject()(dbConfigProvider: DatabaseConfigProvider) ex
       case (pa, article) => (article.title, article.body)
     }
     db.run(namedQuery.result)
+  }
+
+  def listPinboardArticles: Future[Seq[(Long, Long, DateTime)]] = {
+    val action = pinboardArticles.map(pinboardArticle => (pinboardArticle.pinboardId,
+                                                          pinboardArticle.articleId,
+                                                          pinboardArticle.pinnedAt))
+    db.run(action.result)
   }
 }
