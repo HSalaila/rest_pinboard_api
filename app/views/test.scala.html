@@ -1,0 +1,23 @@
+@import controllers.PinboardForm
+@(pinboardForm: Form[PinboardForm], deletePinboardForm: Form[DeletePinboardForm])
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test controller</title>
+</head>
+<body>
+<h1>rest controller</h1>
+  <p>uses the RestController to fetch the results </p>
+  <h2>create pinboard</h2>
+  <form action="@routes.TestController.createPinboard()" method="post">
+    <input type="text" name="@pinboardForm("name").name" placeholder="Enter name (Optional)" value=""/>
+    <input type="submit" value="Create">
+  </form>
+  <h2>delete pinboard</h2>
+  <form action="@routes.TestController.deletePinboard()" method="post">
+    <input type="number" name="@deletePinboardForm("id").name" placeholder="Enter id" value=""/>
+    <input type="submit" value="Delete">
+  </form>
+</body>
+</html>

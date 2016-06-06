@@ -4,6 +4,8 @@ import javax.inject.Inject
 
 import _root_.util.BaseRepo
 import play.api.db.slick.DatabaseConfigProvider
+import play.api.libs.functional.syntax._
+import play.api.libs.json.Reads._
 import play.api.libs.json._
 import slick.driver.H2Driver.api._
 import slick.lifted.{TableQuery, Tag}
@@ -24,6 +26,11 @@ object Pinboard {
       "name" -> pinboard.name
     )
   }
+
+  implicit val pinboardReads = {
+    (__ \ "id").read[Long] and
+    (__ \ "name").read[String]
+  }.apply(Pinboard.apply _)
 }
 class PinboardTable(tag: Tag) extends Table[Pinboard](tag, "pinboard") {
   def id = column[Long]("id", O.AutoInc, O.PrimaryKey)

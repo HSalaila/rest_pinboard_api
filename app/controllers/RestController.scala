@@ -37,11 +37,17 @@ class RestController @Inject() (pinboardRepo: PinboardRepo,
    */
   def createPinboard = Action {
     request => {
-      val map = request.body.asFormUrlEncoded.get
-      val seqName = map.get("name")
-      val pinboard = seqName match {
-        case Some(seqName) => pinboardRepo.addPinboard(seqName.head)
-        case None => pinboardRepo.addPinboard("no name")
+      val map = request.body.asFormUrlEncoded
+      val name = map match {
+        case Some(map) => map.get("name") match {
+          case Some(name) => name.head
+          case None => ""
+        }
+        case None => ""
+      }
+      val pinboard = name match {
+        case name if name != "" => pinboardRepo.addPinboard(name)
+        case _ => pinboardRepo.addPinboard("no name")
       }
       Ok(Json.toJson(Await.result(pinboard, Duration.Inf))).as("application/json")
     }

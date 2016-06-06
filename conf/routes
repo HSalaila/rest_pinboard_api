@@ -1,7 +1,11 @@
 GET     /                           controllers.Application.index
 GET     /generateDDL                controllers.DatabaseController.generateDDL
-
+GET     /test                       controllers.TestController.index
+POST    /test/create                controllers.TestController.createPinboard
+POST    /test/delete                controllers.TestController.deletePinboard
 GET     /pinboards                  controllers.RestController.index
+
+# rest stuff
 POST    /pinboards                  controllers.RestController.createPinboard
 GET     /pinboards/:id              controllers.RestController.listArticles(id: Long)
 DELETE  /pinboards/:id              controllers.RestController.deletePinboard(id: Long)
